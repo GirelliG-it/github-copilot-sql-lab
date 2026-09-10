@@ -1,93 +1,35 @@
-# SQL and DDL Learning Path
+# Fundamentals of Data Engineering Project
 
 ## Purpose
 
-This path develops production-grade SQL proficiency and then applies it to a concrete R&D goal: evaluating whether an AI coding assistant such as GitHub Copilot can be used effectively and responsibly for SQL development against real organizational data models.
+The aim of this project is to study and build a production-oriented pipeline focused on ingestion, validation, transformation and SQL analysis. In this case study the main focus will be analysing and processing Dutch seaport cargo volumes from the official CBS StatLine Dataportal. The current status is planning and initial data exploration.
 
-The emphasis is on understanding the relational model, predicting database behavior, designing reliable schemas, and verifying claims with executable SQL. The research phase then adds experimental design, repeatable AI evaluations, safety analysis, IDE comparison, and evidence-based recommendations.
+The emphasis is on understanding the relational model, predicting database behavior, designing reliable schemas, and verifying claims with executable SQL.
 
-## North-star capability
+## v0.1 scope
 
-The destination is not merely “can write SQL” or “can prompt Copilot.” You should be able to answer this kind of question with defensible evidence:
+The first version will turn one official dataset into a reproducible analysis of Dutch seaport cargo trends.
 
-> Under which tasks, schema-context conditions, tools, and safeguards does an AI assistant improve SQL development—and where does it introduce unacceptable correctness, security, performance, or consistency risks?
-
-That requires two connected kinds of competence:
-
-| Competence | Demonstration |
-| --- | --- |
-| SQL judgment | Independently recognize correct semantics, missing constraints, unsafe writes, cardinality errors, non-idempotent operations, poor plans, and dialect mistakes. |
-| Research judgment | Design representative tasks, control variables, define scoring rules before testing, repeat trials, distinguish observation from inference, and communicate limitations. |
-| AI-output evaluation | Test generated SQL rather than accepting plausible text; assess correctness, safety, consistency, maintainability, and performance separately. |
-| Data-model communication | Supply enough schema context for a task without exposing unnecessary or sensitive information, and determine how context quality changes output quality. |
-| Organizational adoption | Translate findings into IDE guidance, review controls, best practices, documentation, training exercises, and a bounded rollout recommendation. |
-
-## Curriculum architecture
-
-The path has two layers:
-
-1. **Modules 0–12 — SQL authority:** become capable of judging AI output without depending on the AI to tell you whether its own work is correct.
-2. **Modules 13–18 — AI-assisted SQL research:** build and run a reproducible evaluation that resembles the proposed R&D assignment.
-
-### Dialect strategy
-
-- ANSI SQL is being used as the conceptual baseline.
-- PostgreSQL is used for transactional behavior, privileges, concurrency, and plan analysis.
-- DuckDB is used for analytical execution and portable local experiments.
-- A **SQL Server bridge** is being added for representative tasks.
-- Keep dialect-specific files separate whenever a supposedly portable version would hide meaningful behavior.
+- **Source:** CBS StatLine dataset 85598NED, covering cargo weight by seaport, transport flow and cargo type.
+- **Pipeline:** preserve the acquired source data, validate and transform it into analytical tables, and use SQL queries to examine changes over time.
+- **Database:** DuckDB for local data storage, transformation and analysis.
 
 ## Repository structure
 
-```text
-sql-open-data-lab/
-├── README.md
-├── migrations/
-│   ├── postgres/
-│   ├── duckdb/
-│   └── sqlserver/
-├── seeds/
-├── queries/
-├── exercises/
-├── tests/
-├── explain/
-├── research/
-│   ├── protocol/
-│   ├── tasks/
-│   ├── prompts/
-│   ├── raw-results/
-│   ├── scored-results/
-│   └── analysis/
-├── training-material/
-└── learning-log.md
-```
+The repository is being reorganised around the v0.1 logistics pipeline. Current locations relevant to this work are:
 
-## Running domain model
+- `docs/` — project documentation, including the preserved future research plan.
+- `queries/` — reserved for analytical SQL queries.
+- `tests/` — reserved for data-quality and software tests.
+- `learning-log.md` — learning notes.
+- `AGENTS.md` — mentoring and collaboration instructions.
 
-| Concept | Meaning |
-| --- | --- |
-| Catalog | An open-data publisher or API, such as a CKAN portal |
-| Resource | A discoverable file or API endpoint belonging to a catalog |
-| Inspection | One attempt to determine format, accessibility, and queryability |
-| Authorization | An explicit decision permitting a particular resource to be loaded |
-| Load attempt | The outcome of one authorized persistence attempt |
+Other directories contain material or placeholders from the original learning plan. Their presence does not indicate implemented functionality.
 
-### Mechanisms
+## Analytical question
 
-Declarative SQL, candidate keys, three-valued logic, logical query processing order, and transaction boundaries.
+How have inbound and outbound cargo volumes changed across Dutch seaports since 2015, and which ports and cargo types contributed most to those changes?
 
-### Final research deliverables
+The intended user is a government policy analyst identifying ports or cargo categories that warrant further investigation. The analysis will compare matching quarters across years to help distinguish persistent declines from isolated weak quarters.
 
-- Research plan and versioned protocol.
-- Reproducible benchmark and anonymized/synthetic schema packages.
-- Raw and scored results with an audit trail.
-- Quality, safety, reliability, consistency, and productivity analysis.
-- IDE/workflow comparison.
-- Best-practice and governance guide.
-- Hands-on training module.
-- Technical report and management presentation.
-- Recommendation: adopt, adopt with constraints, run a further pilot, or do not adopt for specified task classes.
-
-### Why this matters in R&D
-
-The useful result is not “Copilot is good” or “Copilot is risky.” It is a bounded map of where it helps, which evidence supports that claim, and which controls must accompany each use case.
+Cargo volumes alone cannot establish whether changes were caused by geopolitical events or staffing shortages.
