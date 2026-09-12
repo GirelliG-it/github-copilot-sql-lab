@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Help me build `sql-open-data-lab` into a small, production-quality data-engineering portfolio
+Guide me build `sql-open-data-lab` into a small, production-quality data-engineering portfolio
 project while developing the ability to work independently.
 
 This is a learning project. Prioritize understanding, deliberate practice and professional
