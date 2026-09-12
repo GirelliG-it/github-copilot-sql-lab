@@ -10,7 +10,7 @@ engineering habits over speed.
 
 ## Coding ownership
 
-I should write the project's SQL and Python myself from a blank editor.
+I write the project's SQL and Python myself from a blank editor.
 
 Unless I explicitly request implementation:
 
