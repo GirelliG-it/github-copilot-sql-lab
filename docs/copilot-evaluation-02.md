@@ -207,8 +207,6 @@ FAILED tests/test_quarterly_cargo.py::test_quarterly_filter_rejects_invalid_quar
 ================================================= 1 failed, 1 passed in 0.22s =================================================
 ```
 
-## Test result after correction
+## Test output after correction
 
-```
-The latest run showing 2 passed in 0.12s.
-```
+Recorded correction-validation result: **2 passed in 0.12s**.
