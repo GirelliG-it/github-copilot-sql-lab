@@ -2,13 +2,15 @@
 
 ## Purpose
 
-The aim of this project is to study and build a production-oriented pipeline focused on ingestion, validation, transformation and SQL analysis. In this case study the main focus will be analysing and processing Dutch seaport cargo volumes from the official CBS StatLine Dataportal. The current status is planning and initial data exploration.
+The central research question is: **Can GitHub Copilot be deployed effectively and responsibly for SQL development?**
 
-The emphasis is on understanding the relational model, predicting database behavior, designing reliable schemas, and verifying claims with executable SQL.
+This project explores writing, explaining, and reviewing SQL with Copilot, checking its suggestions against explicit requirements and executable tests. The focus is on correctness, reliability, security, and human oversight.
+
+Dutch seaport cargo data from CBS StatLine provides the practical case study. We use DuckDB and Python to develop SQL skills, test queries, and record evidence about Copilot’s strengths and limitations.
 
 ## v0.1 scope
 
-The first version will turn one official dataset into a reproducible analysis of Dutch seaport cargo trends.
+The proposed v0.1 combines a reproducible analysis of one official Dutch seaport cargo dataset with documented evaluations of Copilot-assisted SQL development. Final scope and release criteria remain to be agreed.
 
 - **Source:** CBS StatLine dataset 85598NED, covering cargo weight by seaport, transport flow and cargo type.
 - **Pipeline:** preserve the acquired source data, validate and transform it into analytical tables, and use SQL queries to examine changes over time.
@@ -16,7 +18,7 @@ The first version will turn one official dataset into a reproducible analysis of
 
 ## Repository structure
 
-The repository is being reorganised around the v0.1 logistics pipeline. Current locations relevant to this work are:
+Current locations relevant to the SQL case study and Copilot evaluations are:
 
 - `docs/` — project documentation, including the preserved future research plan.
 - `queries/` — SQL queries, including the quarterly cargo filter.
@@ -30,21 +32,29 @@ Other directories contain material or placeholders from the original learning pl
 How have inbound and outbound cargo volumes changed across Dutch seaports since 2015, and which ports and cargo types contributed most to those changes?
 
 The intended user is a government policy analyst identifying ports or cargo categories that warrant further investigation. The analysis will compare matching quarters across years to help distinguish persistent declines from isolated weak quarters.
-
 Cargo volumes alone cannot establish whether changes were caused by geopolitical events or staffing shortages.
+
 
 ## Testing
 
 From the repository root, with the project environment active, run:
 
-    python -s -m pytest -v
+```bash
+python -s -m pytest -v
+```
 
-The `-s` option excludes user-wide Python packages.
+Python’s `-s` option excludes user-wide Python packages.
 
-The current test runs the quarterly SQL query against a small in-memory
-dataset. It checks that quarterly rows and their weights are preserved
-and annual rows are excluded. It does not yet validate the real CBS
-data or the complete source schema.
+The suite currently contains three tests using controlled, in-memory DuckDB data:
+
+- Preserve valid quarterly rows while excluding annual and NULL-period rows.
+- Reject an invalid fifth-quarter label.
+- Verify quarterly cargo totals, previous totals per port, percentage growth, missing/zero-denominator handling, and output order.
+
+Last recorded validation on 2026-09-22: **3 passed**.
+
+These tests do not validate the complete CBS dataset or source schema. The growth fixture assumes consecutive quarters; missing-quarter behavior remains untested.
+
 
 ## Running the quarterly query
 
@@ -67,8 +77,11 @@ connection.execute("""
     FROM read_csv('data/raw/85598NED_SelectieZonderStatSymbol_20260905202831.csv')
 """)
 sql = Path("queries/01_inspect_quarterly_cargo.sql").read_text()
-connection.execute(sql).show()
+connection.sql(sql).show()
 connection.close()
 ```
-
 The CSV must exist at the specified path. It is excluded from Git.
+
+### Acknowledgements
+
+This project was inspired by the R&D department of [ChipSoft](https://www.chipsoft.com/nl-NL)
