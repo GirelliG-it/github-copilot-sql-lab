@@ -6,11 +6,11 @@ The central research question is: **Can GitHub Copilot be deployed effectively a
 
 This project explores writing, explaining, and reviewing SQL with Copilot, checking its suggestions against explicit requirements and executable tests. The focus is on correctness, reliability, security, and human oversight.
 
-Dutch seaport cargo data from CBS StatLine provides the practical case study. We use DuckDB and Python to develop SQL skills, test queries, and record evidence about Copilot’s strengths and limitations.
+Dutch seaport cargo data from CBS StatLine provides the practical case study. I use DuckDB and Python to develop SQL skills, test queries, and record evidence about Copilot’s strengths and limitations.
 
 ## v0.1 scope
 
-The proposed v0.1 combines a reproducible analysis of one official Dutch seaport cargo dataset with documented evaluations of Copilot-assisted SQL development. Final scope and release criteria remain to be agreed.
+The proposed v0.1 combines a reproducible analysis of one official Dutch seaport cargo dataset with documented evaluations of Copilot-assisted SQL development. Final scope and release criteria remain to be defined.
 
 - **Source:** CBS StatLine dataset 85598NED, covering cargo weight by seaport, transport flow and cargo type.
 - **Pipeline:** preserve the acquired source data, validate and transform it into analytical tables, and use SQL queries to examine changes over time.
@@ -39,7 +39,7 @@ Cargo volumes alone cannot establish whether changes were caused by geopolitical
 
 From the repository root, with the project environment active, run:
 
-```bash
+```zsh
 python -s -m pytest -v
 ```
 
@@ -60,7 +60,7 @@ These tests do not validate the complete CBS dataset or source schema. The growt
 
 From the repository root, start Python with user-wide packages excluded:
 
-```bash
+```zsh
 python -s
 ```
 
