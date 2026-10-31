@@ -1,6 +1,8 @@
 from pathlib import Path
 import duckdb
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 def test_quarterly_filter_excludes_annual_rows():
     connection = duckdb.connect(":memory:")
 
@@ -19,7 +21,9 @@ def test_quarterly_filter_excludes_annual_rows():
     (NULL, 999)
     """)
 
-    sql = Path("queries/01_inspect_quarterly_cargo.sql").read_text()
+    sql = (
+        PROJECT_ROOT / "queries" / "01_inspect_quarterly_cargo.sql"
+    ).read_text(encoding="utf-8")
     actual = connection.execute(sql).fetchall()
 
     expected = [
@@ -31,8 +35,6 @@ def test_quarterly_filter_excludes_annual_rows():
     f"Expected {expected}, got {actual}"
     )
     connection.close()
-
-
 
 
 def test_quarterly_filter_rejects_invalid_quarter_number():
@@ -52,8 +54,11 @@ def test_quarterly_filter_rejects_invalid_quarter_number():
     ('2023 5e kwartaal', 999)
     """)
 
-    sql = Path("queries/01_inspect_quarterly_cargo.sql").read_text()
-    actual =  connection.execute(sql).fetchall()
+    sql = (
+        PROJECT_ROOT / "queries" /
+        "01_inspect_quarterly_cargo.sql"
+    ).read_text(encoding="utf-8")
+    actual = connection.execute(sql).fetchall()
  
 
     expected = [

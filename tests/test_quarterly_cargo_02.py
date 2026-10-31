@@ -2,10 +2,14 @@ from pathlib import Path
 from datetime import date
 import duckdb
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 def test_quarterly_cargo_growth():
     # 1. Create a fresh database and load the six practice rows.
     connection = duckdb.connect(":memory:")
-    setup = Path("queries/cargo_growth_input.sql").read_text()
+    setup = (
+        PROJECT_ROOT / "queries" / "cargo_growth_input.sql"
+    ).read_text(encoding="utf-8")
     connection.execute(setup)
 
     # 2. Add input rows that test growth from zero
@@ -16,7 +20,10 @@ def test_quarterly_cargo_growth():
     """)
 
     # 3. Run the growth query against all the input data.
-    sql = Path("queries/02_quarterly_cargo_growth.sql").read_text()
+    sql = (
+        PROJECT_ROOT / "queries" /
+    "02_quarterly_cargo_growth.sql"
+    ).read_text(encoding="utf-8")
     actual = connection.execute(sql).fetchall()
 
     # 4. Write down the complete expected answer.
