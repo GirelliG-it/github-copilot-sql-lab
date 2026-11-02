@@ -1,0 +1,41 @@
+publiccodeYmlVersion: "0"
+
+name: github-copilot-sql-lab
+url: "https://github.com/GirelliG-it/github-copilot-sql-lab"
+platforms:
+  - linux
+
+developmentStatus: development
+
+softwareType: "standalone/desktop"
+
+description:
+  en:
+    shortDescription: >
+      github-copilot-sql-lab is an experimental SQL research and learning project inspitred by
+      the R&D department of "https://www.chipsoft.com/nl-NL/".
+
+    longDescription: >
+      The proposed v0.1 combines a reproducible analysis of one official Dutch seaport cargo dataset with
+      documented evaluations of Copilot-assisted SQL development. Final scope and release criteria remain to be defined.
+
+
+features:
+  - SQL development and analytical queries using DuckDB
+  - Automated SQL correctness testing with Python and pytest
+  - Evaluation of GitHub Copilot-assisted SQL development
+  - Reproducible experiments using Dutch open data
+ 
+
+legal:
+  license: MIT
+
+maintenance:
+  type: "community"
+  contacts:
+    - name: GirelliG-it
+
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - en
